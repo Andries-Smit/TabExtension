@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<widget id="TabName.TabName" needsEntityContext="true" xmlns="http://www.mendix.com/widget/1.0/">
+  <name>Tab Name</name>
+  <description>Set a Tab title based on a attribute in the content pane</description>
+
+  <icon>iVBORw0KGgoAAAANSUhEUgAAABAAAAAOCAYAAAAmL5yKAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAB3RJTUUH3gEIFyIN3F5ZyAAAAUlJREFUKM+VUrtKQ0EQPVlukBCNIqQwXapgo51apBEbwVrBxtrf8RsU7G3Vwk6sRBBBJJWCF4WIXM3jzpyxCBv2PiwyMOw8ds6cmd1K7+3LHl6J/sBAEtudKq6eUggJVWJvrYaL+1+IEqLEwUYD7dbiHYBHAIieY8Xueh1ezm9/cNRdyPjHO8sZv92auqic3nza/uZ85gJJKDFlobQpg4kqRAyrK1VEIzWEcrhVh9lknLLTzKCqMDOcXPbhNAcwiyQDgSOZCea7eQ1zSZLAzJCKwokyU5wHCm2vPjYWhRNmRwgvlYGGbFJROFUWqHsgX+BB82DjVOHknx2EHfM78TkRwolaoXtIvQxkGgcRDccCkojjeKYnJIn6XITIQQAAzWaz0E1VC7sIbZiicnbds5f3IT6+U4yESFWhMvnCqRJKLWXQqDl0O0v4A3NFiBaEgKFuAAAAAElFTkSuQmCC</icon>
+
+  <properties>
+    <property key="emptyValue" type="string" >
+	    <caption>Empty Value</caption>
+	    <category>Data source</category>
+	    <description>Value to be shown when attribute value is empty</description>
+    </property>
+    <property key="entity" type="entity">
+	    <caption>Context Entity</caption>
+	    <category>Data source</category>
+	    <description>The Entity of the attribute </description>
+    </property>
+	<property key="attribute" type="attribute">
+	    <caption>Attribute</caption>
+	    <category>Data source</category>
+	    <description>The attribute that will set the name of the Tab Title.</description>
+            <attributeTypes>
+                    <attributeType name="String"/>
+            </attributeTypes>
+    </property>
+  </properties>
+</widget>
+
