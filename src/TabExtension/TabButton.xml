@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<widget id="TabName.TabButton" needsEntityContext="true" xmlns="http://www.mendix.com/widget/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mendix.com/widget/1.0/ C:\Users\smita\Downloads\widget.xsd">
+<widget id="TabExtension.TabButton" needsEntityContext="true" xmlns="http://www.mendix.com/widget/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mendix.com/widget/1.0/ C:\Users\smita\Downloads\widget.xsd">
 	<name>Tab Button</name>
 	<description>Add buttons to a tab container as fake tab, link or button</description>
 	<icon>iVBORw0KGgoAAAANSUhEUgAAABAAAAAOCAYAAAAmL5yKAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAB3RJTUUH3gEIFyIN3F5ZyAAAAUlJREFUKM+VUrtKQ0EQPVlukBCNIqQwXapgo51apBEbwVrBxtrf8RsU7G3Vwk6sRBBBJJWCF4WIXM3jzpyxCBv2PiwyMOw8ds6cmd1K7+3LHl6J/sBAEtudKq6eUggJVWJvrYaL+1+IEqLEwUYD7dbiHYBHAIieY8Xueh1ezm9/cNRdyPjHO8sZv92auqic3nza/uZ85gJJKDFlobQpg4kqRAyrK1VEIzWEcrhVh9lknLLTzKCqMDOcXPbhNAcwiyQDgSOZCea7eQ1zSZLAzJCKwokyU5wHCm2vPjYWhRNmRwgvlYGGbFJROFUWqHsgX+BB82DjVOHknx2EHfM78TkRwolaoXtIvQxkGgcRDccCkojjeKYnJIn6XITIQQAAzWaz0E1VC7sIbZiicnbds5f3IT6+U4yESFWhMvnCqRJKLWXQqDl0O0v4A3NFiBaEgKFuAAAAAElFTkSuQmCC</icon>
@@ -62,7 +62,7 @@
 						<enumerationValue key="right">Right</enumerationValue>
 					</enumerationValues>
 				</property>
-				<property key="microflow" type="microflow" required="true" >
+				<property key="microflow" type="microflow" required="true">
 					<caption>Microflow</caption>
 					<category>button</category>
 					<description>Microflow that called on click</description>
