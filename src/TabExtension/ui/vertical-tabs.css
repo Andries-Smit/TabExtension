@@ -1,0 +1,121 @@
+/*!
+ * bootstrap-vertical-tabs - v1.2.1
+ * https://dbtek.github.io/bootstrap-vertical-tabs
+ * 2014-11-07
+ * Copyright (c) 2014 İsmail Demirbilek
+ * License: MIT
+ */
+
+/* 
+* Thanks to: İsmail Demirbilek
+* Mendix adaptation by: Andries Smit
+* Date 03-12-2014
+*/
+.tabs-left > ul.nav-tabs {
+  float: left;
+}
+
+.tabs-right > ul.nav-tabs {
+  float: right;
+}
+
+.tabs-left:not(.sideways) > .tab-content {
+    padding-left: 10px;
+}
+
+.sideways.tabs-left > .tab-content {
+    left: -70px;
+    position: relative;
+}
+
+/* Original styling replace: 
+* .tabs-left => .tabs-left > ul
+* .tabs-right  => .tabs-right > ul 
+* .sideways => .sideways>ul  (some places)
+*/
+
+.tabs-left > ul, .tabs-right > ul {
+  border-bottom: none;
+  padding-top: 2px;
+}
+.tabs-left > ul {
+  border-right: 1px solid #ddd;
+}
+.tabs-right > ul {
+  border-left: 1px solid #ddd;
+}
+.tabs-left > ul>li, .tabs-right > ul>li {
+  float: none;
+  margin-bottom: 2px;
+}
+.tabs-left > ul>li {
+  margin-right: -1px;
+}
+.tabs-right > ul>li {
+  margin-left: -1px;
+}
+.tabs-left > ul>li.active>a,
+.tabs-left > ul>li.active>a:hover,
+.tabs-left > ul>li.active>a:focus {
+  border-bottom-color: #ddd;
+  border-right-color: transparent;
+}
+
+.tabs-right > ul>li.active>a,
+.tabs-right > ul>li.active>a:hover,
+.tabs-right > ul>li.active>a:focus {
+  border-bottom: 1px solid #ddd;
+  border-left-color: transparent;
+}
+.tabs-left > ul>li>a {
+  border-radius: 4px 0 0 4px;
+  margin-right: 0;
+  display:block;
+}
+.tabs-right > ul>li>a {
+  border-radius: 0 4px 4px 0;
+  margin-right: 0;
+}
+.sideways>ul {
+  margin-top:50px;
+  border: none;
+  position: relative;
+}
+.sideways>ul>li {
+  height: 20px;
+  width: 120px;
+  margin-bottom: 100px;
+}
+.sideways>ul>li>a {
+  border-bottom: 1px solid #ddd;
+  border-right-color: transparent;
+  text-align: center;
+  border-radius: 4px 4px 0px 0px;
+}
+.sideways>ul>li.active>a,
+.sideways>ul>li.active>a:hover,
+.sideways>ul>li.active>a:focus {
+  border-bottom-color: transparent;
+  border-right-color: #ddd;
+  border-left-color: #ddd;
+}
+.sideways.tabs-left > ul {
+  left: -50px;
+}
+.sideways.tabs-right > ul {
+  right: -50px;
+}
+.sideways.tabs-right > ul>li {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+.sideways.tabs-left > ul>li {
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}

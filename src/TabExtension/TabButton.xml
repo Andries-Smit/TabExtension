@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<widget id="TabExtension.TabButton" needsEntityContext="true" xmlns="http://www.mendix.com/widget/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mendix.com/widget/1.0/ C:\Users\smita\Downloads\widget.xsd">
+<widget id="TabExtension.TabButton" needsEntityContext="true" xmlns="http://www.mendix.com/widget/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mendix.com/widget/1.0/ widget.xsd">
 	<name>Tab Button</name>
 	<description>Add buttons to a tab container as fake tab, link or button</description>
 	<icon>iVBORw0KGgoAAAANSUhEUgAAABAAAAAOCAYAAAAmL5yKAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAB3RJTUUH3gEIFyIN3F5ZyAAAAUlJREFUKM+VUrtKQ0EQPVlukBCNIqQwXapgo51apBEbwVrBxtrf8RsU7G3Vwk6sRBBBJJWCF4WIXM3jzpyxCBv2PiwyMOw8ds6cmd1K7+3LHl6J/sBAEtudKq6eUggJVWJvrYaL+1+IEqLEwUYD7dbiHYBHAIieY8Xueh1ezm9/cNRdyPjHO8sZv92auqic3nza/uZ85gJJKDFlobQpg4kqRAyrK1VEIzWEcrhVh9lknLLTzKCqMDOcXPbhNAcwiyQDgSOZCea7eQ1zSZLAzJCKwokyU5wHCm2vPjYWhRNmRwgvlYGGbFJROFUWqHsgX+BB82DjVOHknx2EHfM78TkRwolaoXtIvQxkGgcRDccCkojjeKYnJIn6XITIQQAAzWaz0E1VC7sIbZiicnbds5f3IT6+U4yESFWhMvnCqRJKLWXQqDl0O0v4A3NFiBaEgKFuAAAAAElFTkSuQmCC</icon>
-	<properties>
-		<property key="tabButtons" type="object" isList="true" required="true">
+	<properties>   
+                <property key="moreTab" type="boolean"  defaultValue="true" >
+                        <caption>More Tab</caption>
+                        <category>More</category>
+                        <description>Responsive move send row of tabs in a drop down button.</description>
+                </property>               
+                <property key="moreCaption" type="translatableString" required="false">
+                        <caption>More Caption</caption>
+                        <category>More</category>
+                        <description>Caption of the drop down button.</description>
+                </property>     
+		<property key="tabButtons" type="object" isList="true" required="false">
 			<caption>Tab Buttons</caption>
 			<category>Buttons</category>
 			<description>Tab Buttons</description>
@@ -38,7 +48,7 @@
 						<enumerationValue key="link">Link</enumerationValue>
 						<enumerationValue key="tab">Tab</enumerationValue>
 					</enumerationValues>
-				</property>
+				</property> 
 				<property key="buttonStyle" type="enumeration" required="true" defaultValue="default">
 					<caption>Button Style</caption>
 					<category>button</category>
