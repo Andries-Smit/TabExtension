@@ -7,7 +7,7 @@
                 <property key="moreTab" type="boolean"  defaultValue="true" >
                         <caption>More Tab</caption>
                         <category>More</category>
-                        <description>Responsive move send row of tabs in a drop down button.</description>
+                        <description>Responsive moving second row of tabs in a drop down button.</description>
                 </property>               
                 <property key="moreCaption" type="translatableString" required="false">
                         <caption>More Caption</caption>
