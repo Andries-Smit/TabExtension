@@ -106,23 +106,24 @@ require(["dojo/dom-construct", "dojo/dom-class", "dojo/on", "dojo/dom-geometry",
             if (!increaceSize) {
                 dojo.query("li:not(.tabdrop)", this.tabContainer).forEach(dojo.hitch(this, function(node) {
                     // find tab items that are dropped into next line.
-                    if (node.offsetTop > this.dropDownTab.offsetTop) {
+                    // query selector can not check if item is placed in the more menu
+                    if (node.offsetTop > this.dropDownTab.offsetTop && this.tabsInMenu.indexOf(node) === -1 ) {                        
                         collection.appendChild(node);
                         newMenuItems.push(node);
                     }
                 }));
-                if (collection.childElementCount > 0) { // Add new dropdown items
+                if (newMenuItems.length > 0) { // Add new dropdown items
                     domCon.place(collection, this.dropDownMenu, "first");
                     this.tabsInMenu = newMenuItems.concat(this.tabsInMenu);
                 }
             }
 
-            if (increaceSize && this.tabsInMenu.length > 0) { // Check if menu items need to return to the tabs 
-                var marginDropTabLeft = domGeom.getMarginBox(this.dropDownTab).l;
+            if (increaceSize && this.tabsInMenu.length > 0) { // Check if menu items need to return to the tabs
+                var marginDropTabLeft = domGeom.position(this.dropDownTab).x;
                 for (var i = 0; i < this.tabsInMenu.length; i++) {
                     for (var j = 0; j < this.allTabs.length; j++) {
                         var t = this.allTabs[j];
-                        if (t.node === this.tabsInMenu[i] && t.right < marginDropTabLeft) {
+                        if (t.node === this.tabsInMenu[i] && t.right < marginDropTabLeft -10) {
                             // enough space, add
                             this.tabContainer.appendChild(this.tabsInMenu[i]);
                             this.tabsInMenu.splice(i, 1);

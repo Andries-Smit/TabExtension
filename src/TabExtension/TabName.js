@@ -31,7 +31,7 @@ define("TabExtension/TabName", ["dojo", "mxui/widget/_FormWidget", "dojo/NodeLis
                 var allPanes = dojo.query(".mx-tabcontainer-pane", tabWidget);
 
                 var tabIndex = allPanes.indexOf(pane);
-
+                // will throw exeption on load, function called twice for unknown reason, second time it works
                 var tabList = dojo.query(".mx-tabcontainer-tabs li a", tabWidget);
                 var tab = tabList[tabIndex];
                 if (tab) {
