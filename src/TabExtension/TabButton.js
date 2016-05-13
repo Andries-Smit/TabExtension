@@ -1,14 +1,29 @@
+/*global mx, mxui, logger, require*/
+/*
+    WidgetName
+    ========================
+    @file      : TabButton.js
+    @version   : 2.1
+    @author    : Andries Smit
+    @date      : 05 Nov 2015
+    @copyright : Flock of Birds International BV
+    @license   : MIT
+*/
+
 mxui.dom.addCss(require.toUrl("TabExtension/ui/vertical-tabs.css"));
 
-require(["dojo/dom-construct", "dojo/dom-class", "dojo/on", "dojo/dom-geometry", "dojo/dom-style"], function(domCon, domClass, on, domGeom, domStyle) {
+define(["dojo/_base/declare", "mxui/widget/_WidgetBase", "dojo/query", "dojo/_base/event", "dojo/_base/lang",
+    "dojo/dom-construct", "dojo/dom-class", "dojo/on", "dojo/dom-geometry", "dojo/dom-style"], 
+    function(declare, _WidgetBase, query, event, lang, domConstruct, domClass, on, domGeom, domStyle) {
     "use strict";
-    mxui.widget.declare("TabExtension.TabButton", {
-        mixins: [mendix.addon._Contextable],
-        inputargs: {
-            tabButtons: [],
-            moreTab: true,
-            moreCaption: "More"
-        },
+    return declare("TabExtension.TabButton", [  _WidgetBase ],{
+        
+        // Parameters configured in the Modeler.
+        tabButtons: [],
+        moreTab: true,
+        moreCaption: "More",
+        
+        //
         handlers: [],
         context: null,
         tabContainer: null,
@@ -20,22 +35,23 @@ require(["dojo/dom-construct", "dojo/dom-class", "dojo/on", "dojo/dom-geometry",
         width: 0,
 
         containerSelector: ".mx-tabcontainer-tabs",
-
-        postCreate: function() {
+        // dojo.declare.constructor is called to construct the widget instance. Implement to initialize non-primitive properties.
+        constructor: function() {
             this.tabsInMenu = [];
             this.allTabs = [];
+        },
+        
+        postCreate: function() {
             // find tab dat is placed in table cell above widget.
             var colindex = this.domNode.parentNode.cellIndex;
             var tabCell = this.domNode.parentNode.parentNode.previousSibling.cells[colindex];
-            this.tabContainer = dojo.query(this.containerSelector, tabCell)[0];
+            this.tabContainer = query(this.containerSelector, tabCell)[0];
             if (this.tabContainer) {
                 this.setupMoreButton();
                 this.addButtons();
             } else {
                 console.error("Could not find tab container with selector: '" + this.containerSelector + "'");
             }
-            this.initContext();
-            this.actLoaded();
         },
 
         setupMoreButton: function() {
@@ -57,19 +73,19 @@ require(["dojo/dom-construct", "dojo/dom-class", "dojo/on", "dojo/dom-geometry",
                 }, this.dropDownMenu, this.dropDown);
 
                 //open dropdown on click
-                this.own(on(this.dropDown, "click", dojo.hitch(this, function(e) {
+                this.own(on(this.dropDown, "click", lang.hitch(this, function(e) {
                     domClass.toggle(this.dropDownTab, "open");
-                    dojo.stopEvent(e);
+                    event.stop(e);
                 })));
                 // close dropdown on any other click
-                this.own(on(window, "click", dojo.hitch(this, function(e) {
+                this.own(on(window, "click", lang.hitch(this, function(e) {
                     domClass.remove(this.dropDownTab, "open");
                 })));
                 // place at first so it will not moved to next line.
-                domCon.place(this.dropDownTab, this.tabContainer, "first");
+                domConstruct.place(this.dropDownTab, this.tabContainer, "first");
                 var rightMargin = null;
-                dojo.query("li:not(.tabdrop)", this.tabContainer).forEach(dojo.hitch(this, function(node) {
-                    this.own(on(node, "click", dojo.hitch(this, function(node, e) {
+                query("li:not(.tabdrop)", this.tabContainer).forEach(lang.hitch(this, function(node) {
+                    this.own(on(node, "click", lang.hitch(this, function(node, e) {
                         // set / remove dropdown tab active if a tab is selected
                         if (node.parentNode === this.dropDownMenu) {
                             domClass.add(this.dropDownTab, "active");
@@ -100,11 +116,10 @@ require(["dojo/dom-construct", "dojo/dom-class", "dojo/on", "dojo/dom-geometry",
                 increaceSize = true;
             }
             this.width = this.mxform.domNode.clientWidth;
-
             var collection = document.createDocumentFragment();
             var newMenuItems = [];
             if (!increaceSize) {
-                dojo.query("li:not(.tabdrop)", this.tabContainer).forEach(dojo.hitch(this, function(node) {
+                query("li:not(.tabdrop)", this.tabContainer).forEach(lang.hitch(this, function(node) {
                     // find tab items that are dropped into next line.
                     // query selector can not check if item is placed in the more menu
                     if (node.offsetTop > this.dropDownTab.offsetTop && this.tabsInMenu.indexOf(node) === -1 ) {                        
@@ -113,7 +128,7 @@ require(["dojo/dom-construct", "dojo/dom-class", "dojo/on", "dojo/dom-geometry",
                     }
                 }));
                 if (newMenuItems.length > 0) { // Add new dropdown items
-                    domCon.place(collection, this.dropDownMenu, "first");
+                    domConstruct.place(collection, this.dropDownMenu, "first");
                     this.tabsInMenu = newMenuItems.concat(this.tabsInMenu);
                 }
             }
@@ -133,7 +148,7 @@ require(["dojo/dom-construct", "dojo/dom-class", "dojo/on", "dojo/dom-geometry",
                 }
             }
 
-            if (dojo.query(".active", this.dropDownMenu).length === 1) { //set tab active when menu item is active
+            if (query(".active", this.dropDownMenu).length === 1) { //set tab active when menu item is active
                 domClass.add(this.dropDownTab, "active");
             } else {
                 domClass.remove(this.dropDownTab, "active");
@@ -161,7 +176,7 @@ require(["dojo/dom-construct", "dojo/dom-class", "dojo/on", "dojo/dom-geometry",
                         "iconUrl": b.image,
                         "renderType": b.displayAs,
                         "class": classes,
-                        "onClick": dojo.hitch(this, this.onclickEvent, b.microflow)
+                        "onClick": lang.hitch(this, this.onclickEvent, b.microflow)
                     });
 
                     var align = b.align === "right" ? {
@@ -184,7 +199,7 @@ require(["dojo/dom-construct", "dojo/dom-class", "dojo/on", "dojo/dom-geometry",
                     }, $("a", {
                         "href": "#"
                     }, img, caption));
-                    this.handlers.push(dojo.on(xtraTab, "click", dojo.hitch(this, this.onclickEvent, b.microflow)));
+                    this.handlers.push(on(xtraTab, "click", lang.hitch(this, this.onclickEvent, b.microflow)));
 
                     this.tabContainer.appendChild(xtraTab);
                 }
@@ -203,8 +218,11 @@ require(["dojo/dom-construct", "dojo/dom-class", "dojo/on", "dojo/dom-geometry",
                 },
                 context: this.mxcontext
             });
-            e.stopPropagation();
-            e.preventDefault();
+            event.stop(e);
         }
     });
+});
+
+require(["TabExtension/TabButton"], function() {
+    "use strict";
 });

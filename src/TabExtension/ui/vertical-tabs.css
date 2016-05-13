@@ -11,6 +11,35 @@
 * Mendix adaptation by: Andries Smit
 * Date 03-12-2014
 */
+.mx-tabcontainer.tabs-left:not(.sideways) ul li.active a {
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+}
+
+.mx-tabcontainer.tabs-right:not(.sideways) ul li.active a {
+    border-left: none;
+    border-bottom: 1px solid #ddd;
+}
+.tabs-left .mx-tabcontainer-pane, .tabs-right .mx-tabcontainer-pane {
+    padding-left: 15px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+}
+/* style fixes for top tabcontainer pane on mx v5.21*/
+.tabs-left:not(.sideways) .mx-tabcontainer-pane {
+    margin-left: 67px;
+}
+.tabs-left.sideways .mx-tabcontainer-pane {
+    margin-left: 110px;
+}
+.tabs-right:not(.sideways) .mx-tabcontainer-pane {
+    margin-right: 77px;
+}
+.tabs-right.sideways .mx-tabcontainer-pane {
+    margin-right: 41px;
+}
+/*end fix*/
+
 .tabs-left > ul.nav-tabs {
   float: left;
 }

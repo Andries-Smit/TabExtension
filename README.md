@@ -40,5 +40,8 @@ Vertical tabs:
 Note that the Cascading Styling Sheet for vertical tabs is added by the 'Tab Button' widget. If you like to use this styling; include the widget at least one in a 'Page' and apply the classes to the Tabs. The widget does not need to be included in the same page. If you are not using the widget at all, you can also choose to copy the styling from the widget into your own style sheets.
 
 #Questions?
-If there are any issues or questions; Feel free to ask at the Mendix Forum:
+If there are any questions; Feel free to ask at the Mendix Forum:
 https://mxforum.mendix.com/questions/6085/App-Store-Widget-Tab-Extension-Dynamic-Names-Buttons
+
+Please report issue via the GidHub issue tracker
+https://github.com/Andries-Smit/TabExtension/issues
