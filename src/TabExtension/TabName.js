@@ -51,8 +51,15 @@ define(["dojo/_base/declare", "dojo/query", "dojo/dom-attr",
                     var tabList = query(".mx-tabcontainer-tabs li a", tabWidget);
                     var tab = tabList[tabIndex];
                     if (tab) {
+                        // Store original title [Axel Brink 2016-08-19]
+                        var origcaption = domAttr.get(tab, "origcaption");
+                        if (!origcaption) {
+                            origcaption = tab.innerHTML;
+                            domAttr.set(tab, "origcaption", origcaption);
+                        }
+
                         if (value) {
-                            tab.innerHTML = value;
+                            tab.innerHTML = origcaption.replace("\{1\}", value);
                         } else {
                             tab.innerHTML = this.emptyValue;
                         }

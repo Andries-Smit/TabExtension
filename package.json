@@ -1,6 +1,6 @@
 {
   "name": "TabExtension",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Mendix Widget: Extends the Mendix tab with some nice features.",
   "author": "Andries Smit <andries.smit@flockofbirds.org>",
   "main": "Gruntfile.js",
