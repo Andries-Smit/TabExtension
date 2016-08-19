@@ -22,5 +22,10 @@
                 <attributeType name="String"/>
             </attributeTypes>
         </property>
+        <property key="useTemplate" type="boolean" defaultValue="false">
+            <caption>Use Template</caption>
+            <category>Data source</category>
+            <description>Simple Template replace in the tab name {1}</description>
+        </property>
     </properties>
 </widget>

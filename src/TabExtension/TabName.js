@@ -1,13 +1,12 @@
-/*jslint browser: true, devel:true, nomen:true, unparam:true, regexp: true*/
-/*global define, require, mxui, mx, logger*/
+/* global define, require, mxui, mx, logger */
 
 /*
     TabName
     ========================
     @file      : TabName.js
-    @version   : 2.1
+    @version   : 2.2.0
     @author    : Andries Smit
-    @date      : 18 May 2016
+    @date      : 18 Aug 2016
     @copyright : Flock of Birds International BV
     @license   : MIT
 */
@@ -15,11 +14,12 @@
 define(["dojo/_base/declare", "dojo/query", "dojo/dom-attr",
      "mxui/widget/_FormWidget", "dojo/NodeList-traverse"],
     function (declare, query, domAttr, _FormWidget) {
-        //"use strict";
+        // "use strict";
         return declare("TabExtension.TabName", [ _FormWidget ], {
             entity: "",
             attribute: "",
             emptyValue: "",
+            originalValue: "",
 
             postMixInProperties: function () {
                 // Combine the properties so the FromWidget can handle the rest.
@@ -37,29 +37,30 @@ define(["dojo/_base/declare", "dojo/query", "dojo/dom-attr",
             _setValueAttr: function (value) {
                 // on value set or change this function wil update the value of the tab label
                 var content = query(this.domNode).closest(".mx-tabcontainer-pane")[0];
-                if (content) { //check if still alive
+                if (content) { // check if still alive
                     domAttr.set(content, "title", value);
-                    // find the Tab widget, in which the name widget is placed
-                    var tabWidget = query(content).closest(".mx-tabcontainer")[0];
-                    // find the pane the widget is place
-                    var pane = query(content).closest(".mx-tabcontainer-pane")[0];
-                    // find all panes in this Tab widget
-                    var allPanes = query(".mx-tabcontainer-pane", tabWidget);
-
-                    var tabIndex = allPanes.indexOf(pane);
-                    // will throw exeption on load, function called twice for unknown reason, second time it works
-                    var tabList = query(".mx-tabcontainer-tabs li a", tabWidget);
-                    var tab = tabList[tabIndex];
+                    var tabWidget = query(content).closest(".mx-tabcontainer")[0], // find the Tab widget, in which the name widget is placed
+                        pane = query(content).closest(".mx-tabcontainer-pane")[0], // find the pane the widget is place
+                        allPanes = query(".mx-tabcontainer-pane", tabWidget), // find all panes in this Tab widget
+                        tabIndex = allPanes.indexOf(pane), // find all panes in this Tab widget
+                        tabList = query(".mx-tabcontainer-tabs li a", tabWidget), // will throw exeption on load, function called twice for unknown reason, second time it works
+                        tab = tabList[tabIndex];
                     if (tab) {
-                        if (value) {
-                            tab.innerHTML = value;
-                        } else {
-                            tab.innerHTML = this.emptyValue;
-                        }
+                        tab.innerHTML = this.getValue(tab, value);
                     } else {
                         console.error("No tab found on index " + tabIndex);
                     }
                 }
+            },
+
+            getValue: function (tab, value) {
+                if (!this.originalValue) {
+                    this.originalValue = tab.innerHTML;
+                }
+                if (value) {
+                    if (this.useTemplate) {
+                        value = this.originalValue.replace("{1}", value);
+                    }
             }
         });
     });

@@ -1,13 +1,12 @@
-/*jslint browser: true, devel:true, nomen:true, unparam:true, regexp: true, plusplus: true */
-/*global define, require, mxui, mx, logger*/
+/* global define, require, mxui, mx, logger */
 
 /*
     TabButton
     ========================
     @file      : TabButton.js
-    @version   : 2.1
+    @version   : 2.2.0
     @author    : Andries Smit
-    @date      : 18 May 2016
+    @date      : 18 Aug 2016
     @copyright : Flock of Birds International BV
     @license   : MIT
 */
@@ -18,7 +17,7 @@ define(["dojo/_base/declare", "mxui/widget/_WidgetBase", "dojo/query", "dojo/_ba
     "dojo/dom-construct", "dojo/dom-class", "dojo/on", "dojo/dom-geometry", "dojo/dom-style"],
     function (declare, _WidgetBase, query, event, lang, domConstruct, domClass, on, domGeom, domStyle) {
         "use strict";
-        return declare("TabExtension.TabButton", [  _WidgetBase ], {
+        return declare("TabExtension.TabButton", [_WidgetBase], {
 
             // Parameters configured in the Modeler.
             tabButtons: [],
@@ -57,38 +56,39 @@ define(["dojo/_base/declare", "mxui/widget/_WidgetBase", "dojo/query", "dojo/_ba
             },
 
             setupMoreButton: function () {
+                // create dropdown menu
                 if (this.moreTab) {
-                    var $ = mxui.dom.create,
+                    var create = mxui.dom.create,
                         rightMargin = null;
-                    this.dropDownMenu = $("ul", {
-                        "class": "dropdown-menu"
+                    this.dropDownMenu = create("ul", {
+                        class: "dropdown-menu"
                     });
-                    this.dropDown = $("a", {
-                        "class": "dropdown-toggle",
+                    this.dropDown = create("a", {
+                        class: "dropdown-toggle",
                         "data-toggle": "dropdown",
-                        "href": "#"
-                    }, this.moreCaption, $("b", {
-                        "class": "caret"
+                        href: "#"
+                    }, this.moreCaption, create("b", {
+                        class: "caret"
                     }));
-                    this.dropDownTab = $("li", {
-                        "class": "dropdown pull-right tabdrop",
-                        "style": "visibility:hidden;"
+                    this.dropDownTab = create("li", {
+                        class: "dropdown pull-right tabdrop",
+                        style: "visibility:hidden;"
                     }, this.dropDownMenu, this.dropDown);
 
-                    //open dropdown on click
-                    this.own(on(this.dropDown, "click", lang.hitch(this, function (e) {
+                    // open dropdown on click
+                    this.own(on(this.dropDown, "click", lang.hitch(this, function (evt) {
                         domClass.toggle(this.dropDownTab, "open");
-                        event.stop(e);
+                        event.stop(evt);
                     })));
                     // close dropdown on any other click
-                    this.own(on(window, "click", lang.hitch(this, function (e) {
+                    this.own(on(window, "click", lang.hitch(this, function (evt) {
                         domClass.remove(this.dropDownTab, "open");
                     })));
                     // place at first so it will not moved to next line.
                     domConstruct.place(this.dropDownTab, this.tabContainer, "first");
 
                     query("li:not(.tabdrop)", this.tabContainer).forEach(lang.hitch(this, function (node) {
-                        this.own(on(node, "click", lang.hitch(this, function (node, e) {
+                        this.own(on(node, "click", lang.hitch(this, function (node, evt) {
                             // set / remove dropdown tab active if a tab is selected
                             if (node.parentNode === this.dropDownMenu) {
                                 domClass.add(this.dropDownTab, "active");
@@ -115,48 +115,65 @@ define(["dojo/_base/declare", "mxui/widget/_WidgetBase", "dojo/query", "dojo/_ba
             },
 
             updateMoreTab: function () {
-                var increaceSize = false,
-                    collection = document.createDocumentFragment(),
-                    newMenuItems = [],
-                    i,
-                    j,
-                    t,
-                    marginDropTabLeft;
+                // update tabs to menu or tabs
+                var increaceSize = false;
                 if (this.width < this.mxform.domNode.clientWidth) {
                     increaceSize = true;
                 }
                 this.width = this.mxform.domNode.clientWidth;
                 if (!increaceSize) {
-                    query("li:not(.tabdrop)", this.tabContainer).forEach(lang.hitch(this, function (node) {
-                        // find tab items that are dropped into next line.
-                        // query selector can not check if item is placed in the more menu
-                        if (node.offsetTop > this.dropDownTab.offsetTop && this.tabsInMenu.indexOf(node) === -1) {
-                            collection.appendChild(node);
-                            newMenuItems.push(node);
-                        }
-                    }));
-                    if (newMenuItems.length > 0) { // Add new dropdown items
-                        domConstruct.place(collection, this.dropDownMenu, "first");
-                        this.tabsInMenu = newMenuItems.concat(this.tabsInMenu);
-                    }
+                    this.moveTabsToMenu();
                 }
-
                 if (increaceSize && this.tabsInMenu.length > 0) { // Check if menu items need to return to the tabs
-                    marginDropTabLeft = domGeom.position(this.dropDownTab).x;
-                    for (i = 0; i < this.tabsInMenu.length; i++) {
-                        for (j = 0; j < this.allTabs.length; j++) {
-                            t = this.allTabs[j];
-                            if (t.node === this.tabsInMenu[i] && t.right < (marginDropTabLeft - 10)) {
-                                // enough space, add
-                                this.tabContainer.appendChild(this.tabsInMenu[i]);
-                                this.tabsInMenu.splice(i, 1);
-                                i--; //decrement because of removing item. 
-                            }
+                    this.moveMenuToTab();
+                }
+                this.updateTabs();
+            },
+
+            moveTabsToMenu: function () {
+                // move the tabs items into the menu.
+                var collection = document.createDocumentFragment(),
+                    newMenuItems = [];
+
+                query("li:not(.tabdrop)", this.tabContainer).forEach(lang.hitch(this, function (node) {
+                    // find tab items that are dropped into next line.
+                    // query selector can not check if item is placed in the more menu
+                    if (node.offsetTop > this.dropDownTab.offsetTop && this.tabsInMenu.indexOf(node) === -1) {
+                        collection.appendChild(node);
+                        newMenuItems.push(node);
+                    }
+                }));
+                if (newMenuItems.length > 0) { // Add new dropdown items
+                    domConstruct.place(collection, this.dropDownMenu, "first");
+                    this.tabsInMenu = newMenuItems.concat(this.tabsInMenu);
+                }
+            },
+
+            moveMenuToTab: function () {
+                // move Menu items back to the tabs
+                var menuIndex = null,
+                    tabIndex = null,
+                    tab = null,
+                    marginDropTabLeft = domGeom.position(this.dropDownTab).x,
+                    padding = 10;
+
+                for (menuIndex = 0; menuIndex < this.tabsInMenu.length; menuIndex++) {
+                    for (tabIndex = 0; tabIndex < this.allTabs.length; tabIndex++) {
+                        tab = this.allTabs[tabIndex];
+                        if (tab.node === this.tabsInMenu[menuIndex] && tab.right < (marginDropTabLeft - padding)) {
+                            // enough space, add
+                            this.tabContainer.appendChild(this.tabsInMenu[menuIndex]);
+                            this.tabsInMenu.splice(menuIndex, 1);
+                            menuIndex--; // decrement because of removing item.
                         }
                     }
                 }
+                this.updateTabs();
+            },
 
-                if (query(".active", this.dropDownMenu).length === 1) { //set tab active when menu item is active
+            updateTabs: function () {
+                // update tabs dom
+                if (query(".active", this.dropDownMenu).length === 1) { // set tab active when menu item is active
                     domClass.add(this.dropDownTab, "active");
                 } else {
                     domClass.remove(this.dropDownTab, "active");
@@ -169,71 +186,80 @@ define(["dojo/_base/declare", "mxui/widget/_WidgetBase", "dojo/query", "dojo/_ba
                 }
             },
 
+            addButton: function (button) {
+                // add button to the tabs
+                var create = mxui.dom.create,
+                    classes = typeof (button.classname) === "undefined" ? "" : button.classname,
+                    align = null,
+                    xtraButton = null,
+                    mxbutton = null;
+                if (button.displayAs === "button") {
+                    classes = button.buttonStyle === "default" ? classes : classes + " btn-" + button.buttonStyle;
+                }
+                mxbutton = new mxui.widget._Button({
+                    caption: button.caption,
+                    iconUrl: button.image,
+                    renderType: button.displayAs,
+                    class: classes,
+                    onClick: lang.hitch(this, this.onclickEvent, button.microflow)
+                });
+
+                align = button.align === "right" ? {class: "pull-right"} : {};
+                xtraButton = create("li", align, mxbutton.domNode);
+
+                this.tabContainer.appendChild(xtraButton);
+            },
+
+            addTab: function (button) {
+                // create an extra tab
+                var create = mxui.dom.create,
+                    caption = typeof (button.caption) === "undefined" ? "" : button.caption,
+                    classes = typeof (button.classname) === "undefined" ? "" : button.classname,
+                    xtraTab = null,
+                    img = null;
+                img = typeof (button.caption) === "undefined" ? "" : create("img", {
+                    src: button.image
+                });
+                if (img && button.altText) {
+                    img.alt = button.altText;
+                }
+                xtraTab = create("li", {
+                    class: classes
+                }, create("a", {
+                    href: "#"
+                }, img, caption));
+                this.handlers.push(on(xtraTab, "click", lang.hitch(this, this.onclickEvent, button.microflow)));
+
+                this.tabContainer.appendChild(xtraTab);
+            },
+
             addButtons: function () {
                 // add the buttons next to the tabs
-                var $ = mxui.dom.create,
-                    i,
-                    b,
-                    classes,
-                    mxbutton;
-                for (i = 0; i < this.tabButtons.length; i++) {
-                    b = this.tabButtons[i];
-                    if (b.displayAs === "button" || b.displayAs === "link") {
-                        classes = typeof(b.classname) === "undefined" ? "" : b.classname;
-                        if (b.displayAs === "button") {
-                            classes = b.buttonStyle === "default" ? classes : classes + " btn-" + b.buttonStyle;
-                        }
-                        mxbutton = new mxui.widget._Button({
-                            "caption": b.caption,
-                            "iconUrl": b.image,
-                            "renderType": b.displayAs,
-                            "class": classes,
-                            "onClick": lang.hitch(this, this.onclickEvent, b.microflow)
-                        });
-
-                        var align = b.align === "right" ? {
-                            "class": "pull-right"
-                        } : {};
-                        var xtraButton = $("li", align, mxbutton.domNode);
-
-                        this.tabContainer.appendChild(xtraButton);
-
-                    } else if (b.displayAs === "tab") {
-                        var img = typeof(b.caption) === "undefined" ? "" : $("img", {
-                            "src": b.image
-                        });
-                        if (img && b.altText) {
-                            img.alt = b.altText;
-                        }
-                        var caption = typeof(b.caption) === "undefined" ? "" : b.caption;
-                        var classes = typeof(b.classname) === "undefined" ? "" : b.classname;
-                        var xtraTab = $("li", {
-                            class: classes
-                        }, $("a", {
-                            "href": "#"
-                        }, img, caption));
-                        this.handlers.push(on(xtraTab, "click", lang.hitch(this, this.onclickEvent, b.microflow)));
-
-                        this.tabContainer.appendChild(xtraTab);
+                var buttonIndex = null,
+                    button = null;
+                for (buttonIndex = 0; buttonIndex < this.tabButtons.length; buttonIndex++) {
+                    button = this.tabButtons[buttonIndex];
+                    if (button.displayAs === "button" || button.displayAs === "link") {
+                        this.addButton(button);
+                    } else if (button.displayAs === "tab") {
+                        this.addTab(button);
                     }
                 }
             },
 
-            onclickEvent: function (mf, e) {
+            onclickEvent: function (mf, evt) {
                 // handle the microflow call
                 mx.data.action({
-                    params: {
-                        actionname: mf
-                    },
+                    params: {actionname: mf},
                     callback: function () {
                         logger.debug(".onclickEvent callback");
                     },
-                    error: function (e) {
-                        logger.error("TabButton onclickEvent: XAS error executing microflow", e);
+                    error: function (error) {
+                        logger.error("TabButton onclickEvent: XAS error executing microflow", error);
                     },
                     context: this.mxcontext
                 });
-                event.stop(e);
+                event.stop(evt);
             }
         });
     });
