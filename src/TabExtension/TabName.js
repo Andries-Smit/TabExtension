@@ -61,6 +61,13 @@ define(["dojo/_base/declare", "dojo/query", "dojo/dom-attr",
                     if (this.useTemplate) {
                         value = this.originalValue.replace("{1}", value);
                     }
+                } else {
+                    if (this.useTemplate) {
+                        value = this.originalValue.replace("{1}", this.emptyValue);
+                    }
+                    value = this.emptyValue;
+                }
+                return value;
             }
         });
     });

@@ -32,6 +32,7 @@ module.exports = function (grunt) {
                 files: [
                     {dest: "./test/Mx5.14.1/deployment/web/widgets", cwd: "./src/", src: ["**/*"], expand: true},
                     {dest: "./test/Mx5.21/deployment/web/widgets", cwd: "./src/", src: ["**/*"], expand: true},
+                    {dest: "./test/Mx6.7/deployment/web/widgets", cwd: "./src/", src: ["**/*"], expand: true}
                 ]
             },
             mpks: {
