@@ -17,9 +17,11 @@
         <property key="attribute" type="attribute">
             <caption>Attribute</caption>
             <category>Data source</category>
-            <description>The attribute that will set the name of the Tab Title.</description>
+            <description>The attribute that will set the name of the Tab Title. If the original tab caption contains '{1}', only that part will be replaced.</description>
             <attributeTypes>
                 <attributeType name="String"/>
+                <attributeType name="Integer"/>
+                <attributeType name="Long"/>
             </attributeTypes>
         </property>
     </properties>
