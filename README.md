@@ -24,10 +24,10 @@ Tab Name:
 Tab Button: (Per button you can set the following properties):
 - Caption (caption on the button)
 - Image (image shown in button)
-- Alt Text (Alt text for the image, allows you to only show a image without caption with a alt as hint)
-- CSS Class (CSS class for the button)
-- Display As (Render button as: Link, Button or Tab)
-- Button Style (style of button, no for links or tabs: Bootstrap button styles)
+- Alt text (Alt text for the image, allows you to only show a image without caption with a alt as hint)
+- CSS class (CSS class for the button)
+- Display as (Render button as: Link, Button or Tab)
+- Button style (style of button, no for links or tabs: Bootstrap button styles)
 - Align ( Align the buttons or links right or default. Tab button will be rendered left)
 - Microflow (Microflow that called on click)
 

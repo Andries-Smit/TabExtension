@@ -10,21 +10,21 @@
             <description>Value to be shown when attribute value is empty</description>
         </property>
         <property key="entity" type="entity">
-            <caption>Context Entity</caption>
+            <caption>Context entity</caption>
             <category>Data source</category>
-            <description>The Entity of the attribute </description>
+            <description>The Entity of the attribute</description>
         </property>
         <property key="attribute" type="attribute">
             <caption>Attribute</caption>
             <category>Data source</category>
-            <description>The attribute that will set the name of the Tab Title.</description>
+            <description>The attribute that will set the name of the 'Tab Title'</description>
             <attributeTypes>
                 <attributeType name="String"/>
                 <attributeType name="Integer"/>
             </attributeTypes>
         </property>
         <property key="useTemplate" type="boolean" defaultValue="false">
-            <caption>Use Template</caption>
+            <caption>Use template</caption>
             <category>Data source</category>
             <description>Simple Template replace in the tab name {1}</description>
         </property>

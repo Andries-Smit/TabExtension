@@ -10,7 +10,6 @@ nbproject/
 node_modules/
 *.bak
 *.bat
-.vscode/launch.json
-.vscode/tasks.json
+.vscode/
 tsconfig.json
 tsd.json

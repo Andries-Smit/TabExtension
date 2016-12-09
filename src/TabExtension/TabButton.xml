@@ -6,23 +6,23 @@
     <properties>
         <property key="targetName" type="string">
             <caption>Tab name</caption>
-            <category>Data source</category>
-            <description>Select the tab</description>
+            <category>Tab</category>
+            <description>The name of the tab container where the widget is applied to</description>
         </property> 
         <property key="moreTab" type="boolean"  defaultValue="true" >
             <caption>More Tab</caption>
             <category>More</category>
-            <description>Responsive moving second row of tabs in a drop down button.</description>
+            <description>Responsive moving second row of tabs in a drop down button</description>
         </property>               
         <property key="moreCaption" type="translatableString" required="false">
             <caption>More Caption</caption>
             <category>More</category>
-            <description>Caption of the drop down button.</description>
+            <description>Caption of the drop down button</description>
         </property>     
         <property key="tabButtons" type="object" isList="true" required="false">
-            <caption>Tab Buttons</caption>
+            <caption>Tab buttons</caption>
             <category>Buttons</category>
-            <description>Tab Buttons</description>
+            <description>Add addition buttons</description>
             <properties>
                 <property key="caption" type="string" required="false">
                     <caption>Caption</caption>
@@ -35,17 +35,17 @@
                     <description>image shown in button</description>
                 </property>
                 <property key="altText" type="string" required="false">
-                    <caption>Alt Text</caption>
+                    <caption>Alt text</caption>
                     <category>button</category>
                     <description>Alt text for the image</description>
                 </property>
                 <property key="cssClass" type="string" required="false">
-                    <caption>CSS Class</caption>
+                    <caption>CSS class</caption>
                     <category>button</category>
                     <description>CSS class for the button</description>
                 </property>
                 <property key="displayAs" type="enumeration" required="true" defaultValue="button">
-                    <caption>Display As</caption>
+                    <caption>Display as</caption>
                     <category>button</category>
                     <description>Render button as</description>
                     <enumerationValues>
@@ -55,7 +55,7 @@
                     </enumerationValues>
                 </property> 
                 <property key="buttonStyle" type="enumeration" required="true" defaultValue="default">
-                    <caption>Button Style</caption>
+                    <caption>Button style</caption>
                     <category>button</category>
                     <description>style of button (no for links)</description>
                     <enumerationValues>
@@ -71,7 +71,7 @@
                 <property key="align" type="enumeration" required="true" defaultValue="default">
                     <caption>Align</caption>
                     <category>button</category>
-                    <description>Align button (not for tab)</description>
+                    <description>Alignment button (not for tab)</description>
                     <enumerationValues>
                         <enumerationValue key="default">Default</enumerationValue>
                         <enumerationValue key="right">Right</enumerationValue>
