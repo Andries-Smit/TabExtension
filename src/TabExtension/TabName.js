@@ -4,11 +4,11 @@
     TabName
     ========================
     @file      : TabName.js
-    @version   : 2.2.0
+    @version   : 3.0.0
     @author    : Andries Smit
-    @date      : 18 Aug 2016
+    @date      : 9 Dec 2016
     @copyright : Flock of Birds International BV
-    @license   : MIT
+    @license   : Apache 2.0
 */
 
 define(["dojo/_base/declare", "dojo/query", "dojo/dom-attr",
@@ -31,6 +31,7 @@ define(["dojo/_base/declare", "dojo/query", "dojo/dom-attr",
             buildRendering: function () {
                 // No real function but the _FormWideget needs this node.
                 this.readNode = mxui.dom.create("div");
+                this.editNode = this.readNode;
                 this.inherited(arguments);
             },
 

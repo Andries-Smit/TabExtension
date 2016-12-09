@@ -4,6 +4,8 @@ test/*/.project
 test/*/*.lock
 test/*/*.launch
 test/*/javasource/
+test/*/.mendix-cache/
+test/*/.svn/
 nbproject/
 node_modules/
 *.bak

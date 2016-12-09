@@ -1,15 +1,8 @@
 {
   "name": "TabExtension",
-  "version": "2.2.0",
+  "version": "3.0.0",
   "description": "Mendix Widget: Extends the Mendix tab with some nice features.",
   "author": "Andries Smit <andries.smit@flockofbirds.org>",
-  "main": "Gruntfile.js",
-  "directories": {
-    "test": "test"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/Andries-Smit/TabExtension.git"

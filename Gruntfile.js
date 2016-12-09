@@ -32,14 +32,16 @@ module.exports = function (grunt) {
                 files: [
                     {dest: "./test/Mx5.14.1/deployment/web/widgets", cwd: "./src/", src: ["**/*"], expand: true},
                     {dest: "./test/Mx5.21/deployment/web/widgets", cwd: "./src/", src: ["**/*"], expand: true},
-                    {dest: "./test/Mx6.7/deployment/web/widgets", cwd: "./src/", src: ["**/*"], expand: true}
+                    {dest: "./test/Mx6.7/deployment/web/widgets", cwd: "./src/", src: ["**/*"], expand: true},
+                    {dest: "./test/Mx6.10/deployment/web/widgets", cwd: "./src/", src: ["**/*"], expand: true}
                 ]
             },
             mpks: {
                 files: [
                     {dest: "./test/Mx5.14.1/widgets", cwd: "./dist/" + pkg.version + "/", src: [ pkg.name + ".mpk"], expand: true},
                     {dest: "./test/Mx5.21/widgets", cwd: "./dist/" + pkg.version + "/", src: [ pkg.name + ".mpk"], expand: true},
-                    {dest: "./test/Mx6.7/widgets", cwd: "./dist/" + pkg.version + "/", src: [ pkg.name + ".mpk"], expand: true}
+                    {dest: "./test/Mx6.7/widgets", cwd: "./dist/" + pkg.version + "/", src: [ pkg.name + ".mpk"], expand: true},
+                    {dest: "./test/Mx6.10/widgets", cwd: "./dist/" + pkg.version + "/", src: [ pkg.name + ".mpk"], expand: true}
                 ]
             }
         },
@@ -57,7 +59,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-contrib-watch");
     grunt.loadNpmTasks("grunt-contrib-copy");
 
-    grunt.registerTask("default", ["watch"]);
+    grunt.registerTask("default", ["clean build", "watch"]);
     grunt.registerTask(
             "clean build",
             "Compiles all the assets and copies the files to the build directory.", ["clean", "compress", "copy" ]

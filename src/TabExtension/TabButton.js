@@ -4,18 +4,18 @@
     TabButton
     ========================
     @file      : TabButton.js
-    @version   : 2.2.0
+    @version   : 3.0.0
     @author    : Andries Smit
-    @date      : 18 Aug 2016
+    @date      : 9 Dec 2016
     @copyright : Flock of Birds International BV
-    @license   : MIT
+    @license   : Apache 2.0
 */
 
 mxui.dom.addCss(require.toUrl("TabExtension/ui/vertical-tabs.css"));
 
 define(["dojo/_base/declare", "mxui/widget/_WidgetBase", "dojo/query", "dojo/_base/event", "dojo/_base/lang",
-    "dojo/dom-construct", "dojo/dom-class", "dojo/on", "dojo/dom-geometry", "dojo/dom-style"],
-    function (declare, _WidgetBase, query, event, lang, domConstruct, domClass, on, domGeom, domStyle) {
+    "dojo/dom-construct", "dojo/dom-class", "dojo/on", "dojo/dom-geometry", "dojo/dom-style", "dijit/registry"],
+    function (declare, _WidgetBase, query, event, lang, domConstruct, domClass, on, domGeom, domStyle, registry) {
         "use strict";
         return declare("TabExtension.TabButton", [_WidgetBase], {
 
@@ -23,7 +23,7 @@ define(["dojo/_base/declare", "mxui/widget/_WidgetBase", "dojo/query", "dojo/_ba
             tabButtons: [],
             moreTab: true,
             moreCaption: "More",
-
+            targetName: "",
             //
             handlers: [],
             context: null,
@@ -34,6 +34,7 @@ define(["dojo/_base/declare", "mxui/widget/_WidgetBase", "dojo/query", "dojo/_ba
             tabsInMenu: null,
             allTabs: null,
             width: 0,
+            className: "widget-tab-button",
 
             containerSelector: ".mx-tabcontainer-tabs",
             // dojo.declare.constructor is called to construct the widget instance. Implement to initialize non-primitive properties.
@@ -43,15 +44,33 @@ define(["dojo/_base/declare", "mxui/widget/_WidgetBase", "dojo/query", "dojo/_ba
             },
 
             postCreate: function () {
-                // find tab dat is placed in table cell above widget.
-                var colindex = this.domNode.parentNode.cellIndex,
-                    tabCell = this.domNode.parentNode.parentNode.previousSibling.cells[colindex];
-                this.tabContainer = query(this.containerSelector, tabCell)[0];
+                this.tabContainer = this.findTarget(this.targetName).firstChild;
                 if (this.tabContainer) {
+                    domClass.add(this.tabContainer, this.className);
                     this.setupMoreButton();
                     this.addButtons();
+                } 
+            },
+            
+            findTarget(name) {
+                var queryNode = this.domNode.parentNode,
+                    targetNode;
+                while (!targetNode) {
+                    targetNode = queryNode.querySelector(".mx-name-" + name);
+                    if (queryNode === document) {
+                        break;
+                    }
+                    queryNode = queryNode.parentNode;
+                }
+                if (targetNode) {
+                    var targetWidget = registry.byNode(targetNode);
+                    if (targetWidget.declaredClass === "mxui.widget.TabContainer") {
+                        return targetNode;
+                    } else {
+                        logger.error("Supplied target '" + name + "' is not a tab container.");                        
+                    }
                 } else {
-                    console.error("Could not find tab container with selector: '" + this.containerSelector + "'");
+                    logger.error("Unable to find tab container named '" + name + "'");
                 }
             },
 

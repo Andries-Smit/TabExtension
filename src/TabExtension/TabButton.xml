@@ -3,7 +3,12 @@
     <name>Tab Button</name>
     <description>Add buttons to a tab container as fake tab, link or button</description>
     <icon>iVBORw0KGgoAAAANSUhEUgAAABAAAAAOCAYAAAAmL5yKAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAB3RJTUUH3gEIFyIN3F5ZyAAAAUlJREFUKM+VUrtKQ0EQPVlukBCNIqQwXapgo51apBEbwVrBxtrf8RsU7G3Vwk6sRBBBJJWCF4WIXM3jzpyxCBv2PiwyMOw8ds6cmd1K7+3LHl6J/sBAEtudKq6eUggJVWJvrYaL+1+IEqLEwUYD7dbiHYBHAIieY8Xueh1ezm9/cNRdyPjHO8sZv92auqic3nza/uZ85gJJKDFlobQpg4kqRAyrK1VEIzWEcrhVh9lknLLTzKCqMDOcXPbhNAcwiyQDgSOZCea7eQ1zSZLAzJCKwokyU5wHCm2vPjYWhRNmRwgvlYGGbFJROFUWqHsgX+BB82DjVOHknx2EHfM78TkRwolaoXtIvQxkGgcRDccCkojjeKYnJIn6XITIQQAAzWaz0E1VC7sIbZiicnbds5f3IT6+U4yESFWhMvnCqRJKLWXQqDl0O0v4A3NFiBaEgKFuAAAAAElFTkSuQmCC</icon>
-    <properties>   
+    <properties>
+        <property key="targetName" type="string">
+            <caption>Tab name</caption>
+            <category>Data source</category>
+            <description>Select the tab</description>
+        </property> 
         <property key="moreTab" type="boolean"  defaultValue="true" >
             <caption>More Tab</caption>
             <category>More</category>
