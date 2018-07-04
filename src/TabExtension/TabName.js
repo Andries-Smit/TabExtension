@@ -1,12 +1,9 @@
-/* global define, require, mxui, mx, logger */
-
 /*
     TabName
     ========================
     @file      : TabName.js
-    @version   : 3.0.0
+    @version   : 3.0.1
     @author    : Andries Smit
-    @date      : 9 Dec 2016
     @copyright : Flock of Birds International BV
     @license   : Apache 2.0
 */
@@ -39,7 +36,6 @@ define([ "dojo/_base/declare", "dojo/query", "dojo/dom-attr",
                 // On value set or change this function wil update the value of the tab label
                 var content = query(this.domNode).closest(".mx-tabcontainer-pane")[0];
                 if (content) { // Check if still alive
-                    domAttr.set(content, "title", value);
                     var tabWidget = query(content).closest(".mx-tabcontainer")[0], // Find the Tab widget, in which the name widget is placed
                         pane = query(content).closest(".mx-tabcontainer-pane")[0], // Find the pane the widget is place
                         allPanes = query(".mx-tabcontainer-pane", tabWidget), // Find all panes in this Tab widget

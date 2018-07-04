@@ -1,6 +1,6 @@
 {
   "name": "TabExtension",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Mendix Widget: Extends the Mendix tab with some nice features.",
   "author": "Andries Smit <andries.smit@flockofbirds.org>",
   "repository": {

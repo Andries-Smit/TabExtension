@@ -36,7 +36,8 @@ module.exports = function(grunt) {
                     { dest: "./test/Mx5.14.1/deployment/web/widgets", cwd: "./src/", src: [ "**/*" ], expand: true },
                     { dest: "./test/Mx5.21/deployment/web/widgets", cwd: "./src/", src: [ "**/*" ], expand: true },
                     { dest: "./test/Mx6.7/deployment/web/widgets", cwd: "./src/", src: [ "**/*" ], expand: true },
-                    { dest: "./test/Mx6.10/deployment/web/widgets", cwd: "./src/", src: [ "**/*" ], expand: true }
+                    { dest: "./test/Mx6.10/deployment/web/widgets", cwd: "./src/", src: [ "**/*" ], expand: true },
+                    { dest: "./test/Mx7.16/deployment/web/widgets", cwd: "./src/", src: [ "**/*" ], expand: true }
                 ]
             },
 
@@ -45,7 +46,8 @@ module.exports = function(grunt) {
                     { dest: "./test/Mx5.14.1/widgets", cwd: "./dist/" + pkg.version + "/", src: [ pkg.name + ".mpk" ], expand: true },
                     { dest: "./test/Mx5.21/widgets", cwd: "./dist/" + pkg.version + "/", src: [ pkg.name + ".mpk" ], expand: true },
                     { dest: "./test/Mx6.7/widgets", cwd: "./dist/" + pkg.version + "/", src: [ pkg.name + ".mpk" ], expand: true },
-                    { dest: "./test/Mx6.10/widgets", cwd: "./dist/" + pkg.version + "/", src: [ pkg.name + ".mpk" ], expand: true }
+                    { dest: "./test/Mx6.10/widgets", cwd: "./dist/" + pkg.version + "/", src: [ pkg.name + ".mpk" ], expand: true },
+                    { dest: "./test/Mx7.16/widgets", cwd: "./dist/" + pkg.version + "/", src: [ pkg.name + ".mpk" ], expand: true }
                 ]
             }
         },
