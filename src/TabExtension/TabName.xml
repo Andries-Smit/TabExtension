@@ -9,11 +9,6 @@
             <category>Data source</category>
             <description>Value to be shown when attribute value is empty</description>
         </property>
-        <property key="entity" type="entity">
-            <caption>Context entity</caption>
-            <category>Data source</category>
-            <description>The Entity of the attribute</description>
-        </property>
         <property key="attribute" type="attribute">
             <caption>Attribute</caption>
             <category>Data source</category>

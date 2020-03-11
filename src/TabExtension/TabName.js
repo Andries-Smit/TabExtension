@@ -1,35 +1,26 @@
-/*
-    TabName
-    ========================
-    @file      : TabName.js
-    @version   : 3.0.1
-    @author    : Andries Smit
-    @copyright : Flock of Birds International BV
-    @license   : Apache 2.0
-*/
-
-define([ "dojo/_base/declare", "dojo/query", "dojo/dom-attr",
-    "mxui/widget/_FormWidget", "dojo/NodeList-traverse" ],
-    function(declare, query, domAttr, _FormWidget) {
+define([ "dojo/_base/declare", "dojo/query", "dojo/_base/lang",
+    "mxui/widget/_WidgetBase", "dojo/NodeList-traverse" ],
+    function(declare, query, lang, _WidgetBase) {
         // "use strict";
-        return declare("TabExtension.TabName", [ _FormWidget ], {
-            entity: "",
+        return declare("TabExtension.TabName", [ _WidgetBase ], {
             attribute: "",
             emptyValue: "",
             originalValue: "",
 
-            postMixInProperties: function() {
-                // Combine the properties so the FromWidget can handle the rest.
-                // Name based Mendix widgets did not update anymore like it did in mx4
-                this.attributePath = this.entity + "/" + this.attribute;
-                this.inherited(arguments);
+            update: function(obj, callback) {
+                logger.debug(this.id + ".update");
+                this._contextObj = obj;
+                this._resetSubscriptions();
+                this._updateRendering();
+                callback && callback();
             },
 
-            buildRendering: function() {
-                // No real function but the _FormWideget needs this node.
-                this.readNode = mxui.dom.create("div");
-                this.editNode = this.readNode;
-                this.inherited(arguments);
+            _updateRendering: function() {
+                var value = "";
+                if (this._contextObj) {
+                    value = this._contextObj.get(this.attribute);
+                }
+                this._setValueAttr(value);
             },
 
             _setValueAttr: function(value) {
@@ -66,6 +57,28 @@ define([ "dojo/_base/declare", "dojo/query", "dojo/dom-attr",
                     value = this.emptyValue;
                 }
                 return value;
+            },
+
+            _resetSubscriptions: function() {
+                logger.debug(this.id + "._resetSubscriptions");
+                this.unsubscribeAll();
+
+                if (this._contextObj) {
+                    this.subscribe({
+                        guid: this._contextObj.getGuid(),
+                        callback: lang.hitch(this, function(guid) {
+                            this._updateRendering();
+                        })
+                    });
+
+                    this.subscribe({
+                        guid: this._contextObj.getGuid(),
+                        attr: this.attribute,
+                        callback: lang.hitch(this, function() {
+                            this._updateRendering();
+                        })
+                    });
+                }
             }
         });
     });
