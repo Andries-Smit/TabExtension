@@ -33,18 +33,16 @@ module.exports = function(grunt) {
         copy: {
             deployment: {
                 files: [
-                    { dest: "./test/Mx6.7/deployment/web/widgets", cwd: "./src/", src: [ "**/*" ], expand: true },
                     { dest: "./test/Mx6.10/deployment/web/widgets", cwd: "./src/", src: [ "**/*" ], expand: true },
-                    { dest: "./test/Mx7.16/deployment/web/widgets", cwd: "./src/", src: [ "**/*" ], expand: true },
+                    { dest: "./test/Mx7.23/deployment/web/widgets", cwd: "./src/", src: [ "**/*" ], expand: true },
                     { dest: "./test/Mx8.6/deployment/web/widgets", cwd: "./src/", src: [ "**/*" ], expand: true }
                 ]
             },
 
             mpks: {
                 files: [
-                    { dest: "./test/Mx6.7/widgets", cwd: "./dist/" + pkg.version + "/", src: [ pkg.name + ".mpk" ], expand: true },
                     { dest: "./test/Mx6.10/widgets", cwd: "./dist/" + pkg.version + "/", src: [ pkg.name + ".mpk" ], expand: true },
-                    { dest: "./test/Mx7.16/widgets", cwd: "./dist/" + pkg.version + "/", src: [ pkg.name + ".mpk" ], expand: true },
+                    { dest: "./test/Mx7.23/widgets", cwd: "./dist/" + pkg.version + "/", src: [ pkg.name + ".mpk" ], expand: true },
                     { dest: "./test/Mx8.6/widgets", cwd: "./dist/" + pkg.version + "/", src: [ pkg.name + ".mpk" ], expand: true }
                 ]
             }
