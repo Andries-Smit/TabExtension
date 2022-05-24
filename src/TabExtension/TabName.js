@@ -8,7 +8,7 @@ define([ "dojo/_base/declare", "dojo/query", "dojo/_base/lang",
             originalValue: "",
 
             update: function(obj, callback) {
-                logger.debug(this.id + ".update");
+                this._getLogger().debug(this.id + ".update");
                 this._contextObj = obj;
                 this._resetSubscriptions();
                 this._updateRendering();
@@ -36,7 +36,7 @@ define([ "dojo/_base/declare", "dojo/query", "dojo/_base/lang",
                     if (tab) {
                         tab.innerHTML = this.getValue(tab, value);
                     } else {
-                        logger.error("No tab found on index " + tabIndex);
+                        this._getLogger().error("No tab found on index " + tabIndex);
                     }
                 }
             },
@@ -60,7 +60,7 @@ define([ "dojo/_base/declare", "dojo/query", "dojo/_base/lang",
             },
 
             _resetSubscriptions: function() {
-                logger.debug(this.id + "._resetSubscriptions");
+                this._getLogger().debug(this.id + "._resetSubscriptions");
                 this.unsubscribeAll();
 
                 if (this._contextObj) {
@@ -79,6 +79,10 @@ define([ "dojo/_base/declare", "dojo/query", "dojo/_base/lang",
                         })
                     });
                 }
+            },
+
+            _getLogger: function() {
+                return mx && mx.logger && typeof mx.logger.debug === "function" ? mx.logger : logger;
             }
         });
     });

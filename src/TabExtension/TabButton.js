@@ -49,9 +49,9 @@ define([ "dojo/_base/declare", "mxui/widget/_WidgetBase", "dojo/query", "dojo/_b
                     if (targetWidget.declaredClass === "mxui.widget.TabContainer") {
                         return targetNode;
                     }
-                    logger.error("Supplied target '" + name + "' is not a tab container.");
+                    this._getLogger().error("Supplied target '" + name + "' is not a tab container.");
                 } else {
-                    logger.error("Unable to find tab container named '" + name + "'");
+                    this._getLogger().error("Unable to find tab container named '" + name + "'");
                 }
                 return null;
             },
@@ -242,15 +242,19 @@ define([ "dojo/_base/declare", "mxui/widget/_WidgetBase", "dojo/query", "dojo/_b
                 // Handle the microflow call
                 mx.data.action({
                     params: { actionname: mf },
-                    callback: function() {
-                        logger.debug(".onclickEvent callback");
-                    },
-                    error: function(error) {
-                        logger.error("TabButton onclickEvent: XAS error executing microflow", error);
-                    },
+                    callback: lang.hitch(this, function() {
+                        this._getLogger().debug(".onclickEvent callback");
+                    }),
+                    error: lang.hitch(this, function(error) {
+                        this._getLogger().error("TabButton onclickEvent: XAS error executing microflow", error);
+                    }),
                     context: this.mxcontext
                 });
                 event.stop(evt);
+            },
+
+            _getLogger: function() {
+                return mx && mx.logger && typeof mx.logger.debug === "function" ? mx.logger : logger;
             }
         });
     });
